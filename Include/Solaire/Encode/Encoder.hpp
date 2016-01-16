@@ -134,6 +134,22 @@ namespace Solaire {
 	    }
 	};
 
+    template<>
+	struct Encoder<String<char>>{
+	    typedef CString DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return CString(aValue.getString());
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const StringConstant<char>& aValue) throw() {
+            GenericValue value;
+            //! \todo Assign string
+            //value.setString() = aValue;
+            return value;
+	    }
+	};
+
 	////
 
 	template<class T>
@@ -152,7 +168,7 @@ namespace Solaire {
             return container;
 	    }
 
-	    static GenericValue encode(Allocator& aAllocator, const StaticContainer<const T>& aContainer) throw() {
+	    static GenericValue encode(Allocator& aAllocator, const StaticContainer<T>& aContainer) throw() {
             GenericValue value;
             const GenericArray& array_ = value.setArray();
             const int32_t size = aContainer.size();
