@@ -178,6 +178,22 @@ namespace Solaire {
             return value;
 	    }
 	};
+
+	template<class T>
+	struct Encoder<T, typename std::enable_if<
+        std::is_base_of<StaticContainer<typename T::Type>, T>::value
+    >::type>{
+	    typedef Encoder<StaticContainer<typename T::Value>> ValueEncoder;
+	    typedef T DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return T(ValueEncoder::decode(aAllocator, aValue));
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const T& aContainer) throw() {
+            return ValueEncoder::encode(aAllocator, aContainer);
+	    }
+	};
 }
 
 #endif
