@@ -79,10 +79,14 @@ namespace Solaire {
         GenericValue& operator=(const GenericValue& aOther) throw();
         GenericValue& operator=(GenericValue&& aOther) throw();
 
+        ValueType getType() const throw();
+
+        bool isNull() const throw();
         bool isChar() const throw();
         bool isBool() const throw();
         bool isUnsigned() const throw();
         bool isSigned() const throw();
+        bool isDouble() const throw();
         bool isString() const throw();
         bool isArray() const throw();
         bool isObject() const throw();

@@ -178,7 +178,15 @@ namespace Solaire {
         return *this;
     }
 
-        // is
+    // is
+
+    GenericValue::ValueType GenericValue::getType() const throw() {
+        return mType;
+    }
+
+    bool GenericValue::isNull() const throw() {
+        return mType == NULL_T;
+    }
 
     bool GenericValue::isChar() const throw() {
         return mType == CHAR_T;
@@ -193,6 +201,10 @@ namespace Solaire {
     }
 
     bool GenericValue::isSigned() const throw() {
+        return mType == SIGNED_T;
+    }
+
+    bool GenericValue::isDouble() const throw() {
         return mType == SIGNED_T;
     }
 

@@ -47,14 +47,14 @@ namespace Solaire {
         /*!
             \brief Destroy the Format object.
         */
-        SOLAIRE_EXPORT_CALL ~Format(){}
+        virtual SOLAIRE_EXPORT_CALL ~Format(){}
 
         /*!
             \brief Decode data from the storage format into GenericValue format.
             \param aStream The source of encoded data.
             \return The decoded data.
         */
-        GenericValue SOLAIRE_EXPORT_CALL readValue(IStream&) const throw();
+        virtual GenericValue SOLAIRE_EXPORT_CALL readValue(IStream&) const throw() = 0;
 
         /*!
             \brief Encode data into the storage format from GenericValue format.
@@ -62,7 +62,7 @@ namespace Solaire {
             \param aStream The place to store the encoded data.
             \return True if the data was encoded successfully.
         */
-        bool SOLAIRE_EXPORT_CALL writeValue(const GenericValue&, OStream&) const throw();
+        virtual bool SOLAIRE_EXPORT_CALL writeValue(const GenericValue&, OStream&) const throw() = 0;
 
         /*!
             \brief Decode a C++ object in place.
