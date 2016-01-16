@@ -54,6 +54,88 @@ namespace Solaire {
 	    return Encoder<T>::encode(aAllocator, aValue);
 	}
 
+	////
+
+    template<>
+	struct Encoder<char>{
+	    typedef char DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return aValue.getChar();
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const char aValue) throw() {
+            return GenericValue(aValue);
+	    }
+	};
+
+    template<>
+	struct Encoder<bool>{
+	    typedef bool DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return aValue.getBool();
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const bool aValue) throw() {
+            return GenericValue(aValue);
+	    }
+	};
+
+    template<class T>
+	struct Encoder<T, typename std::enable_if<
+        std::is_same<T, uint8_t>::value ||
+        std::is_same<T, uint16_t>::value ||
+        std::is_same<T, uint32_t>::value ||
+        std::is_same<T, uint64_t>::value
+    >::type>{
+	    typedef T DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return static_cast<T>(aValue.getUnsigned());
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const T aValue) throw() {
+            return GenericValue(static_cast<uint64_t>(aValue));
+	    }
+	};
+
+    template<class T>
+	struct Encoder<T, typename std::enable_if<
+        std::is_same<T, int8_t>::value ||
+        std::is_same<T, int16_t>::value ||
+        std::is_same<T, int32_t>::value ||
+        std::is_same<T, int64_t>::value
+    >::type>{
+	    typedef T DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return static_cast<T>(aValue.getSigned());
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const T aValue) throw() {
+            return GenericValue(static_cast<int64_t>(aValue));
+	    }
+	};
+
+    template<class T>
+	struct Encoder<T, typename std::enable_if<
+        std::is_same<T, float>::value ||
+        std::is_same<T, double>::value
+    >::type>{
+	    typedef T DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            return static_cast<T>(aValue.getDouble());
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const T aValue) throw() {
+            return GenericValue(static_cast<double>(aValue));
+	    }
+	};
+
+	////
+
 	template<class T>
 	struct Encoder<StaticContainer<T>>{
 	    typedef ArrayList<T> DecodeType;
@@ -77,6 +159,7 @@ namespace Solaire {
             for(int32_t i = 0; i < size; ++i) {
                 array_.pushBack(Encoder<T>::encode(aAllocator, aContainer[i]));
             }
+            return value;
 	    }
 	};
 }
