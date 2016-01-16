@@ -31,6 +31,7 @@
 	Last Modified	: 16th January 2016
 */
 
+#include "Solaire/Data/ArrayList.hpp"
 #include "Solaire/Encode/GenericValue.hpp"
 
 namespace Solaire {
@@ -52,6 +53,32 @@ namespace Solaire {
 	static GenericValue decode(Allocator& aAllocator, const T& aValue) {
 	    return Encoder<T>::encode(aAllocator, aValue);
 	}
+
+	template<class T>
+	struct Encoder<StaticContainer<T>>{
+	    typedef ArrayList<T> DecodeType;
+
+	    static DecodeType decode(Allocator& aAllocator, const GenericValue& aValue) throw() {
+            ArrayList<T> container(aAllocator);
+            if(aValue.isArray()){
+                const GenericArray& array_ = aValue.getArray();
+                const int32_t size = array_.size();
+                for(int32_t i = 0; i < size; ++i) {
+                    container.pushBack(Encoder<T>::decode(aAllocator, array_[i]));
+                }
+            }
+            return container;
+	    }
+
+	    static GenericValue encode(Allocator& aAllocator, const StaticContainer<const T>& aContainer) throw() {
+            GenericValue value;
+            const GenericArray& array_ = value.setArray();
+            const int32_t size = aContainer.size();
+            for(int32_t i = 0; i < size; ++i) {
+                array_.pushBack(Encoder<T>::encode(aAllocator, aContainer[i]));
+            }
+	    }
+	};
 }
 
 #endif
