@@ -45,12 +45,12 @@ namespace Solaire {
         bool SOLAIRE_EXPORT_CALL writeValue(const GenericValue&, OStream&) const throw();
 
         template<class T>
-        typename Encoder<T>::DecodeType read(Allocator& aAllocator, IStream& aStream) {
+        SOLAIRE_FORCE_INLINE typename Encoder<T>::DecodeType read(Allocator& aAllocator, IStream& aStream) {
             return Encoder<T>::decode(aAllocator, readValue(aStream));
         }
 
         template<class T>
-        bool write(Allocator& aAllocator, const T& aValue, OStream& aStream) {
+        SOLAIRE_FORCE_INLINE bool write(Allocator& aAllocator, const T& aValue, OStream& aStream) {
             return writeValue(Encoder<T>::encode(aAllocator, aValue), aStream);
         }
 	};
