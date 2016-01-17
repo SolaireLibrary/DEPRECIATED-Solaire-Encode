@@ -131,17 +131,20 @@ namespace Solaire {
         SOLAIRE_FORCE_INLINE explicit operator uint64_t() const throw()              {return getUnsigned();}
         SOLAIRE_FORCE_INLINE explicit operator float() const throw()                 {return static_cast<float>(getDouble());}
         SOLAIRE_FORCE_INLINE explicit operator double() const throw()                {return getDouble();}
-        SOLAIRE_FORCE_INLINE explicit operator String<char>&() throw()               {return getString();}
+        SOLAIRE_FORCE_INLINE explicit operator String<char>&() throw()               {if(! isString()) setString(); return getString();}
         SOLAIRE_FORCE_INLINE explicit operator const String<char>&() const throw()   {return getString();}
-        SOLAIRE_FORCE_INLINE explicit operator GenericArray&() throw()               {return getArray();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericArray&() throw()               {if(! isArray()) setArray(); return getArray();}
         SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()   {return getArray();}
-        SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()              {return getObject();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()              {if(! isObject()) setObject(); return getObject();}
         SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()  {return getObject();}
 
         SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                           {return (*mArray)[aIndex];}
         SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()               {return (*mArray)[aIndex];}
         SOLAIRE_FORCE_INLINE GenericValue& operator[](const StringConstant<char>& aName) throw()              {return (*mObject)[aName];}
         SOLAIRE_FORCE_INLINE const GenericValue& operator[](const StringConstant<char>& aName) const throw()  {return (*mObject)[aName];}
+
+        SOLAIRE_FORCE_INLINE GenericValue& pushBack(const GenericValue& aValue) throw()                         {if(! isArray()) setArray(); return mArray->pushBack(aValue);}
+        SOLAIRE_FORCE_INLINE GenericValue& emplace(const CString& aName, const GenericValue& aValue) throw()    {if(! isObject()) setObject(); return mObject->emplace(aName, aValue);}
 	};
 
     typedef GenericValue::GenericArray GenericArray;
