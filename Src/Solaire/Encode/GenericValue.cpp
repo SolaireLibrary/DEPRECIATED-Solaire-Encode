@@ -26,6 +26,7 @@ namespace Solaire {
 	// GenericValue
 
     GenericValue::GenericValue() throw() :
+        mAllocator(&DEFAULT_ALLOCATOR),
         mType(NULL_T)
     {}
 
