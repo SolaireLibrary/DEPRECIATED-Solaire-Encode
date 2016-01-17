@@ -99,10 +99,46 @@ namespace Solaire {
         mType(BOOL_T)
     {}
 
+    GenericValue::GenericValue(const uint8_t aValue) throw() :
+        mUnsigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(UNSIGNED_T)
+    {}
+
+    GenericValue::GenericValue(const uint16_t aValue) throw() :
+        mUnsigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(UNSIGNED_T)
+    {}
+
+    GenericValue::GenericValue(const uint32_t aValue) throw() :
+        mUnsigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(UNSIGNED_T)
+    {}
+
     GenericValue::GenericValue(const uint64_t aValue) throw() :
         mUnsigned(aValue),
         mAllocator(&DEFAULT_ALLOCATOR),
         mType(UNSIGNED_T)
+    {}
+
+    GenericValue::GenericValue(const int8_t aValue) throw() :
+        mSigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(SIGNED_T)
+    {}
+
+    GenericValue::GenericValue(const int16_t aValue) throw() :
+        mSigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(SIGNED_T)
+    {}
+
+    GenericValue::GenericValue(const int32_t aValue) throw() :
+        mSigned(aValue),
+        mAllocator(&DEFAULT_ALLOCATOR),
+        mType(SIGNED_T)
     {}
 
     GenericValue::GenericValue(const int64_t aValue) throw() :
