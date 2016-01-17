@@ -118,6 +118,25 @@ namespace Solaire {
         String<char>& setString() throw();
         GenericArray& setArray() throw();
         GenericObject& setObject() throw();
+
+        SOLAIRE_FORCE_INLINE explicit operator char() const throw()                  {return getChar();}
+        SOLAIRE_FORCE_INLINE explicit operator bool() const throw()                  {return getBool();}
+        SOLAIRE_FORCE_INLINE explicit operator int8_t() const throw()                {return static_cast<int8_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int16_t() const throw()               {return static_cast<int16_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int32_t() const throw()               {return static_cast<int32_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int64_t() const throw()               {return getSigned();}
+        SOLAIRE_FORCE_INLINE explicit operator uint8_t() const throw()               {return static_cast<uint8_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint16_t() const throw()              {return static_cast<uint16_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint32_t() const throw()              {return static_cast<uint32_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint64_t() const throw()              {return getUnsigned();}
+        SOLAIRE_FORCE_INLINE explicit operator float() const throw()                 {return static_cast<float>(getDouble());}
+        SOLAIRE_FORCE_INLINE explicit operator double() const throw()                {return getDouble();}
+        SOLAIRE_FORCE_INLINE explicit operator String<char>&() throw()               {return getString();}
+        SOLAIRE_FORCE_INLINE explicit operator const String<char>&() const throw()   {return getString();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericArray&() throw()               {return getArray();}
+        SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()   {return getArray();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()              {return getObject();}
+        SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()  {return getObject();}
 	};
 
     typedef GenericValue::GenericArray GenericArray;
