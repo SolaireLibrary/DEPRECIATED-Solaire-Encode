@@ -26,7 +26,7 @@ namespace Solaire {
 	// GenericValue
 
     GenericValue::GenericValue() throw() :
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(NULL_T)
     {}
 
@@ -90,67 +90,67 @@ namespace Solaire {
 
     GenericValue::GenericValue(const char aValue)throw() :
         mChar(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(CHAR_T)
     {}
 
     GenericValue::GenericValue(const bool aValue) throw() :
         mBool(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(BOOL_T)
     {}
 
     GenericValue::GenericValue(const uint8_t aValue) throw() :
         mUnsigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(UNSIGNED_T)
     {}
 
     GenericValue::GenericValue(const uint16_t aValue) throw() :
         mUnsigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(UNSIGNED_T)
     {}
 
     GenericValue::GenericValue(const uint32_t aValue) throw() :
         mUnsigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(UNSIGNED_T)
     {}
 
     GenericValue::GenericValue(const uint64_t aValue) throw() :
         mUnsigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(UNSIGNED_T)
     {}
 
     GenericValue::GenericValue(const int8_t aValue) throw() :
         mSigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(SIGNED_T)
     {}
 
     GenericValue::GenericValue(const int16_t aValue) throw() :
         mSigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(SIGNED_T)
     {}
 
     GenericValue::GenericValue(const int32_t aValue) throw() :
         mSigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(SIGNED_T)
     {}
 
     GenericValue::GenericValue(const int64_t aValue) throw() :
         mSigned(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(SIGNED_T)
     {}
 
     GenericValue::GenericValue(const double aValue) throw() :
         mDouble(aValue),
-        mAllocator(&DEFAULT_ALLOCATOR),
+        mAllocator(&getDefaultAllocator()),
         mType(DOUBLE_T)
     {}
 
