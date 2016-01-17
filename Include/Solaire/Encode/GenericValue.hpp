@@ -137,6 +137,11 @@ namespace Solaire {
         SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()   {return getArray();}
         SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()              {return getObject();}
         SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()  {return getObject();}
+
+        SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                           {return (*mArray)[aIndex];}
+        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()               {return (*mArray)[aIndex];}
+        SOLAIRE_FORCE_INLINE GenericValue& operator[](const StringConstant<char>& aName) throw()              {return (*mObject)[aName];}
+        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const StringConstant<char>& aName) const throw()  {return (*mObject)[aName];}
 	};
 
     typedef GenericValue::GenericArray GenericArray;
