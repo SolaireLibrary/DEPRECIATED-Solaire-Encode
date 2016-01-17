@@ -46,8 +46,8 @@ namespace Solaire {
 	        NULL_T,
 	        CHAR_T,
 	        BOOL_T,
-	        SIGNED_T,
 	        UNSIGNED_T,
+	        SIGNED_T,
 	        DOUBLE_T,
 	        STRING_T,
 	        ARRAY_T,
@@ -68,6 +68,7 @@ namespace Solaire {
 	    ValueType mType;
     public:
         GenericValue() throw();
+        GenericValue(const ValueType) throw();
         GenericValue(const GenericValue& aOther) throw();
         GenericValue(GenericValue&& aOther) throw();
         GenericValue(const char aValue)throw();
@@ -84,18 +85,6 @@ namespace Solaire {
 
         GenericValue& operator=(const GenericValue& aOther) throw();
         GenericValue& operator=(GenericValue&& aOther) throw();
-
-        ValueType getType() const throw();
-
-        bool isNull() const throw();
-        bool isChar() const throw();
-        bool isBool() const throw();
-        bool isUnsigned() const throw();
-        bool isSigned() const throw();
-        bool isDouble() const throw();
-        bool isString() const throw();
-        bool isArray() const throw();
-        bool isObject() const throw();
 
         char getChar() const throw();
         bool getBool() const throw();
@@ -119,32 +108,47 @@ namespace Solaire {
         GenericArray& setArray() throw();
         GenericObject& setObject() throw();
 
-        SOLAIRE_FORCE_INLINE explicit operator char() const throw()                  {return getChar();}
-        SOLAIRE_FORCE_INLINE explicit operator bool() const throw()                  {return getBool();}
-        SOLAIRE_FORCE_INLINE explicit operator int8_t() const throw()                {return static_cast<int8_t>(getSigned());}
-        SOLAIRE_FORCE_INLINE explicit operator int16_t() const throw()               {return static_cast<int16_t>(getSigned());}
-        SOLAIRE_FORCE_INLINE explicit operator int32_t() const throw()               {return static_cast<int32_t>(getSigned());}
-        SOLAIRE_FORCE_INLINE explicit operator int64_t() const throw()               {return getSigned();}
-        SOLAIRE_FORCE_INLINE explicit operator uint8_t() const throw()               {return static_cast<uint8_t>(getUnsigned());}
-        SOLAIRE_FORCE_INLINE explicit operator uint16_t() const throw()              {return static_cast<uint16_t>(getUnsigned());}
-        SOLAIRE_FORCE_INLINE explicit operator uint32_t() const throw()              {return static_cast<uint32_t>(getUnsigned());}
-        SOLAIRE_FORCE_INLINE explicit operator uint64_t() const throw()              {return getUnsigned();}
-        SOLAIRE_FORCE_INLINE explicit operator float() const throw()                 {return static_cast<float>(getDouble());}
-        SOLAIRE_FORCE_INLINE explicit operator double() const throw()                {return getDouble();}
-        SOLAIRE_FORCE_INLINE explicit operator String<char>&() throw()               {if(! isString()) setString(); return getString();}
-        SOLAIRE_FORCE_INLINE explicit operator const String<char>&() const throw()   {return getString();}
-        SOLAIRE_FORCE_INLINE explicit operator GenericArray&() throw()               {if(! isArray()) setArray(); return getArray();}
-        SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()   {return getArray();}
-        SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()              {if(! isObject()) setObject(); return getObject();}
-        SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()  {return getObject();}
+        SOLAIRE_FORCE_INLINE ValueType getType() const throw()                                                  {return mType;}
 
-        SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                           {return (*mArray)[aIndex];}
-        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()               {return (*mArray)[aIndex];}
-        SOLAIRE_FORCE_INLINE GenericValue& operator[](const StringConstant<char>& aName) throw()              {return (*mObject)[aName];}
-        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const StringConstant<char>& aName) const throw()  {return (*mObject)[aName];}
+        SOLAIRE_FORCE_INLINE bool isNull() const throw()                                                        {return mType == NULL_T;}
+        SOLAIRE_FORCE_INLINE bool isChar() const throw()                                                        {return mType == CHAR_T;}
+        SOLAIRE_FORCE_INLINE bool isBool() const throw()                                                        {return mType == BOOL_T;}
+        SOLAIRE_FORCE_INLINE bool isUnsigned() const throw()                                                    {return mType == UNSIGNED_T;}
+        SOLAIRE_FORCE_INLINE bool isSigned() const throw()                                                      {return mType == SIGNED_T;}
+        SOLAIRE_FORCE_INLINE bool isDouble() const throw()                                                      {return mType == DOUBLE_T;}
+        SOLAIRE_FORCE_INLINE bool isString() const throw()                                                      {return mType == STRING_T;}
+        SOLAIRE_FORCE_INLINE bool isArray() const throw()                                                       {return mType == ARRAY_T;}
+        SOLAIRE_FORCE_INLINE bool isObject() const throw()                                                      {return mType == OBJECT_T;}
+
+        SOLAIRE_FORCE_INLINE explicit operator char() const throw()                                             {return getChar();}
+        SOLAIRE_FORCE_INLINE explicit operator bool() const throw()                                             {return getBool();}
+        SOLAIRE_FORCE_INLINE explicit operator int8_t() const throw()                                           {return static_cast<int8_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int16_t() const throw()                                          {return static_cast<int16_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int32_t() const throw()                                          {return static_cast<int32_t>(getSigned());}
+        SOLAIRE_FORCE_INLINE explicit operator int64_t() const throw()                                          {return getSigned();}
+        SOLAIRE_FORCE_INLINE explicit operator uint8_t() const throw()                                          {return static_cast<uint8_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint16_t() const throw()                                         {return static_cast<uint16_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint32_t() const throw()                                         {return static_cast<uint32_t>(getUnsigned());}
+        SOLAIRE_FORCE_INLINE explicit operator uint64_t() const throw()                                         {return getUnsigned();}
+        SOLAIRE_FORCE_INLINE explicit operator float() const throw()                                            {return static_cast<float>(getDouble());}
+        SOLAIRE_FORCE_INLINE explicit operator double() const throw()                                           {return getDouble();}
+        SOLAIRE_FORCE_INLINE explicit operator String<char>&() throw()                                          {if(! isString()) setString(); return getString();}
+        SOLAIRE_FORCE_INLINE explicit operator const String<char>&() const throw()                              {return getString();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericArray&() throw()                                          {if(! isArray()) setArray(); return getArray();}
+        SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()                              {return getArray();}
+        SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()                                         {if(! isObject()) setObject(); return getObject();}
+        SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()                             {return getObject();}
+
+        SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                             {return (*mArray)[aIndex];}
+        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()                 {return (*mArray)[aIndex];}
+        SOLAIRE_FORCE_INLINE GenericValue& operator[](const StringConstant<char>& aName) throw()                {return (*mObject)[aName];}
+        SOLAIRE_FORCE_INLINE const GenericValue& operator[](const StringConstant<char>& aName) const throw()    {return (*mObject)[aName];}
 
         SOLAIRE_FORCE_INLINE GenericValue& pushBack(const GenericValue& aValue) throw()                         {if(! isArray()) setArray(); return mArray->pushBack(aValue);}
         SOLAIRE_FORCE_INLINE GenericValue& emplace(const CString& aName, const GenericValue& aValue) throw()    {if(! isObject()) setObject(); return mObject->emplace(aName, aValue);}
+        SOLAIRE_FORCE_INLINE int32_t size() const throw()                                                       {return isArray() ? mArray->size() : isObject() ? mObject->size() : 0;}
+        SOLAIRE_FORCE_INLINE Allocator& getAllocator() const throw()                                            {return *mAllocator;}
+        SOLAIRE_FORCE_INLINE void clear() throw()                                                               {setNull();}
 	};
 
     typedef GenericValue::GenericArray GenericArray;

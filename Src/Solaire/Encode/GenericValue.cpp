@@ -30,6 +30,40 @@ namespace Solaire {
         mType(NULL_T)
     {}
 
+    GenericValue::GenericValue(const ValueType aType) throw() :
+        mAllocator(&getDefaultAllocator()),
+        mType(aType)
+    {
+        switch(mType){
+        case CHAR_T:
+            mChar = ' ';
+            break;
+        case BOOL_T:
+            mBool = false;
+            break;
+        case UNSIGNED_T:
+            mUnsigned = 0;
+            break;
+        case SIGNED_T:
+            mSigned = 0;
+            break;
+        case DOUBLE_T:
+            mDouble = 0.0;
+            break;
+        case STRING_T:
+            mString = new(mAllocator->allocate(sizeof(CString))) CString();
+            break;
+        case ARRAY_T:
+            mArray = new(mAllocator->allocate(sizeof(ArrayType))) ArrayType();
+            break;
+        case OBJECT_T:
+            mObject = new(mAllocator->allocate(sizeof(ObjectType))) ObjectType();
+            break;
+        default:
+            break;
+        }
+    }
+
     GenericValue::GenericValue(const GenericValue& aOther) throw() :
         mAllocator(aOther.mAllocator),
         mType(aOther.mType)
@@ -215,47 +249,7 @@ namespace Solaire {
         return *this;
     }
 
-    // is
-
-    GenericValue::ValueType GenericValue::getType() const throw() {
-        return mType;
-    }
-
-    bool GenericValue::isNull() const throw() {
-        return mType == NULL_T;
-    }
-
-    bool GenericValue::isChar() const throw() {
-        return mType == CHAR_T;
-    }
-
-    bool GenericValue::isBool() const throw() {
-        return mType == BOOL_T;
-    }
-
-    bool GenericValue::isUnsigned() const throw() {
-        return mType == UNSIGNED_T;
-    }
-
-    bool GenericValue::isSigned() const throw() {
-        return mType == SIGNED_T;
-    }
-
-    bool GenericValue::isDouble() const throw() {
-        return mType == SIGNED_T;
-    }
-
-    bool GenericValue::isString() const throw() {
-        return mType == STRING_T;
-    }
-
-    bool GenericValue::isArray() const throw() {
-        return mType == ARRAY_T;
-    }
-
-    bool GenericValue::isObject() const throw() {
-        return mType == OBJECT_T;
-    }
+    // get
 
     char GenericValue::getChar() const throw() {
         switch(mType){
