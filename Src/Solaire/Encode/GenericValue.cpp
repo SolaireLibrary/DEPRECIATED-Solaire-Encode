@@ -271,8 +271,7 @@ namespace Solaire {
         case DOUBLE_T:
             return static_cast<uint64_t>(mDouble);
         case STRING_T:
-            //! \todo Cast from string
-            return 0;
+            return static_cast<uint64_t>(*mString);
         default:
             return 0;
         }
@@ -291,8 +290,7 @@ namespace Solaire {
         case DOUBLE_T:
             return static_cast<int64_t>(mDouble);
         case STRING_T:
-            //! \todo Cast from string
-            return 0;
+            return static_cast<int64_t>(*mString);
         default:
             return 0;
         }
@@ -312,7 +310,7 @@ namespace Solaire {
             return mDouble;
         case STRING_T:
             //! \todo Cast from string
-            return 0.0;
+            return static_cast<int64_t>(*mString);
         default:
             return 0.0;
         }
