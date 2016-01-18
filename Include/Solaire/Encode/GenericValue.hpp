@@ -100,7 +100,7 @@ namespace Solaire {
 
         void setNull() throw();
         char& setChar(const char aValue) throw();
-        bool& setChar(const bool aValue) throw();
+        bool& setBool(const bool aValue) throw();
         uint64_t& setUnsigned(const uint64_t aValue) throw();
         int64_t& setSigned(const int64_t aValue) throw();
         double& setDouble(const double aValue) throw();
@@ -138,6 +138,20 @@ namespace Solaire {
         SOLAIRE_FORCE_INLINE explicit operator const GenericArray&() const throw()                              {return getArray();}
         SOLAIRE_FORCE_INLINE explicit operator GenericObject&() throw()                                         {if(! isObject()) setObject(); return getObject();}
         SOLAIRE_FORCE_INLINE explicit operator const GenericObject&() const throw()                             {return getObject();}
+
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const char aValue) throw()                                 {setChar(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const bool aValue) throw()                                 {setBool(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const int8_t aValue) throw()                               {setSigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const int16_t aValue) throw()                              {setSigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const int32_t aValue) throw()                              {setSigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const int64_t aValue) throw()                              {setSigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const uint8_t aValue) throw()                              {setUnsigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const uint16_t aValue) throw()                             {setUnsigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const uint32_t aValue) throw()                             {setUnsigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const uint64_t aValue) throw()                             {setUnsigned(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const float aValue) throw()                                {setDouble(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const double aValue) throw()                               {setDouble(aValue); return *this;}
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const String<char>& aValue) throw()                        {setString() = aValue; return *this;}
 
         SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                             {return (*mArray)[aIndex];}
         SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()                 {return (*mArray)[aIndex];}

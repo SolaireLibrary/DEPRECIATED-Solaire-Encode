@@ -395,7 +395,7 @@ namespace Solaire {
         return mChar = aValue;
     }
 
-    bool& GenericValue::setChar(const bool aValue) throw() {
+    bool& GenericValue::setBool(const bool aValue) throw() {
         setNull();
         mType = BOOL_T;
         return mBool = aValue;
