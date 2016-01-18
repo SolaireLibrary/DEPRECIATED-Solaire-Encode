@@ -152,6 +152,8 @@ namespace Solaire {
         SOLAIRE_FORCE_INLINE GenericValue& operator=(const float aValue) throw()                                {setDouble(aValue); return *this;}
         SOLAIRE_FORCE_INLINE GenericValue& operator=(const double aValue) throw()                               {setDouble(aValue); return *this;}
         SOLAIRE_FORCE_INLINE GenericValue& operator=(const String<char>& aValue) throw()                        {setString() = aValue; return *this;}
+        template<class T>
+        SOLAIRE_FORCE_INLINE GenericValue& operator=(const T& aValue) throw()                                   {setString() = aValue; return *this;}
 
         SOLAIRE_FORCE_INLINE GenericValue& operator[](const int32_t aIndex) throw()                             {return (*mArray)[aIndex];}
         SOLAIRE_FORCE_INLINE const GenericValue& operator[](const int32_t aIndex) const throw()                 {return (*mArray)[aIndex];}
