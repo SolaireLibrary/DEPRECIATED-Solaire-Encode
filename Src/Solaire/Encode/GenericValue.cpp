@@ -188,6 +188,14 @@ namespace Solaire {
         mType(DOUBLE_T)
     {}
 
+    GenericValue::GenericValue(const StringConstant<char>& aValue) throw() :
+        mString(nullptr),
+        mAllocator(&aValue.getAllocator()),
+        mType(NULL_T)
+    {
+        setString() = aValue;
+    }
+
         // C++ operators
 
     GenericValue& GenericValue::operator=(const GenericValue& aOther) throw() {

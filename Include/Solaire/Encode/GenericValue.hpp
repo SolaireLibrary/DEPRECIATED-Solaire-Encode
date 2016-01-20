@@ -82,6 +82,7 @@ namespace Solaire {
         GenericValue(const int32_t aValue) throw();
         GenericValue(const int64_t aValue) throw();
         GenericValue(const double aValue) throw();
+        GenericValue(const StringConstant<char>& aValue) throw();
 
         GenericValue& operator=(const GenericValue& aOther) throw();
         GenericValue& operator=(GenericValue&& aOther) throw();
